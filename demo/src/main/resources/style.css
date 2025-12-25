@@ -57,7 +57,7 @@
 #sidebar .list-cell {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-font-family: "Segoe UI", SimHei, sans-serif;
+    -fx-font-family: "SimHei"; /* 使用黑体字体 */
     -fx-background-color: rgba(255, 255, 255, 0.5); /* 半透明白色背景 */
     -fx-background-radius: 5;                     /* 圆角 */
     -fx-border-color: #e0e0e0;                     /* 浅色边框 */
@@ -126,3 +126,8 @@
     -fx-text-fill: #333;
 }
 
+#main-content-area .todoitem-id {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666;
+    -fx-padding: 0 10 0 0;
+}

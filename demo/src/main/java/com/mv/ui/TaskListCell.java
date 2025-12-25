@@ -20,6 +20,7 @@ public class TaskListCell extends ListCell<TodoItem> {
     private final CheckBox doneBox = new CheckBox();
     private final Label contentLabel = new Label();
     private final Label priorityIcon =new Label();
+    private final Label idLabel = new Label();
     
     // 进度显示和调节
     private final ProgressBar progressBar = new ProgressBar();
@@ -34,7 +35,10 @@ public class TaskListCell extends ListCell<TodoItem> {
         root.setAlignment(Pos.CENTER_LEFT);
         root.setPadding(new Insets(10,12,10,12));
         root.getStyleClass().add("todoitem-container");
-        
+
+
+        idLabel.getStyleClass().add("todoitem-id");
+        idLabel.setMinWidth(20);
         contentLabel.getStyleClass().add("todoitem-content");
         priorityIcon.getStyleClass().add("todoitem-priority-icon");
         
@@ -44,7 +48,7 @@ public class TaskListCell extends ListCell<TodoItem> {
 
         
         // 设置布局
-        root.getChildren().addAll(doneBox, priorityIcon, contentLabel, spacer, progressBar);
+        root.getChildren().addAll(idLabel, doneBox, priorityIcon, contentLabel, spacer, progressBar);
         HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
         
         
@@ -72,6 +76,7 @@ public class TaskListCell extends ListCell<TodoItem> {
             // 初始样式
             updateItemStyle(item.isCompleted());
             updatePriorityIcon(item.getPriority());
+            idLabel.setText(String.valueOf(item.getId()));
             contentLabel.setText(item.getContent());
             // 绑定进度条
             progressBar.progressProperty().bind(item.progressProperty().divide(100.0));

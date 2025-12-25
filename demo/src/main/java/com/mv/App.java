@@ -194,6 +194,7 @@ public class App extends Application
         currentListNameLabel.setText(selectedList.getTitle());
         currentItems.clear();
         currentItems.setAll(selectedList.getItems());
+        saveAll();
     }
 
     private void handleAddList() {
@@ -219,8 +220,9 @@ public class App extends Application
         TodoItemDialog dialog = new TodoItemDialog(null);
         dialog.showAndWait().ifPresent(newItem -> {
             currentItems.add(newItem);
+            sortAndSave();
             selectedList.getItems().add(newItem);
-            saveAll();
+            sortAndSave();
         });
     }
 
@@ -236,7 +238,7 @@ public class App extends Application
             if (index >= 0) {
                 currentItems.set(index, editedItem);
                 selectedList.getItems().set(index, editedItem);
-                saveAll();
+                sortAndSave();
             }
         });
     }
@@ -249,6 +251,16 @@ public class App extends Application
                 }
                 return Boolean.compare(a.isCompleted(), b.isCompleted()); // 未完成在前
             });
+            //同步修改id
+            for (int i = 0; i < currentItems.size(); i++) {
+                currentItems.get(i).setId(i + 1);
+            }
+            // 同步回原始数据模型
+            selectedList.setItems(new ArrayList<>(currentItems));
+
+            // 4. 强制 ListView 刷新所有 Cell 的显示
+            // 这能解决 ID 显示不及时的问题
+            taskListView.refresh();
         }
         saveAll();
     }

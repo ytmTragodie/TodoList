@@ -68,7 +68,8 @@ public class TodoItemDialog extends Dialog<TodoItem> {
         // Result converter
         setResultConverter(dialogButton -> {
             if (dialogButton == savButtonType) {
-                int id = (item != null) ? item.getId() : (int) (System.currentTimeMillis() % 100000);
+                // int id = (item != null) ? item.getId() : (int) (System.currentTimeMillis() % 100000);
+                int id = 0;// 设置id 默认值为0，实际应用中应由调用方设置唯一ID
                 String content = contentField.getText();
                 return new TodoItem(
                     content,
