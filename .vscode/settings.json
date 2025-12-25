@@ -1,0 +1,14 @@
+{
+    //设置项目内terminal变量，JAVA_HOME为项目内JDK路径
+    "terminal.integrated.env.windows": {
+        "JAVA_HOME": "X:\\ProgramFiles\\AndroidStudio\\jbr",
+        //配置maven 可执行文件路径到内置terminal
+        "MAVEN_HOME": "X:\\ProgramFiles\\javamaven\\apache-maven-3.9.12",
+        "PATH": "${env:PATH};X:\\ProgramFiles\\javamaven\\apache-maven-3.9.12\\bin;X:\\ProgramFiles\\PortableGit\\bin"
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
+    //配置maven 可执行文件路径到内置terminal
+    //"terminal.integrated.env.windows": {
+    //    "MAVEN_HOME": "C:\\Program Files\\Apache\\maven\\apache-maven-3.8.6"
+    //} 
+}

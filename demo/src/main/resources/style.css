@@ -1,0 +1,128 @@
+/* 设置背景和字体 */
+.root {
+    -fx-background-image: url("night.jpg");
+    -fx-background-size: cover;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.toolbar-text {
+    -fx-text-fill: #ecf0f1;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.main-title {
+    -fx-text-fill: #ecf0f1;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 20 0;
+}
+
+
+
+
+/* 美化按钮 */
+.button {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-padding: 8 15;
+}
+.button:hover {
+    -fx-background-color: #357abd;
+    background-color: #357abd;
+}
+
+/* 美化输入框 */
+.text-field {
+    -fx-background-radius: 5;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+}
+
+/** side bar area **/
+
+#sidebar  .list-view{
+    -fx-opacity: 0.8; /* 使侧边栏背景稍微透明 */
+    -fx-border-width: 0 4 0 0;    /* 只给右侧加边框线 */
+}
+
+/* 侧边栏里的所有标签 */
+#sidebar .label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#sidebar .list-cell {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", SimHei, sans-serif;
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* 半透明白色背景 */
+    -fx-background-radius: 5;                     /* 圆角 */
+    -fx-border-color: #e0e0e0;                     /* 浅色边框 */
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2); /* 阴影 */
+}
+
+#sidebar .list-cell:selected {
+    -fx-background-color: rgb(6, 3, 79); /* 选中时的背景颜色 */
+    -fx-text-fill: white;           /* 选中时的文字颜色 */
+}
+
+
+/* main content area */
+
+/* 1. 移除 ListView 默认的背景和边框 */
+
+#main-content-area .list-view {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 10;
+}  
+
+/* 2. 移除 Cell 默认的选中背景颜色 */
+#main-content-area .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+
+/* 3. 我们自定义的任务条容器样式 */
+.todoitem-container {
+    -fx-background-color: rgba(255, 255, 255, 0.9); /* 半透明白色背景 */
+    -fx-background-radius: 10;                     /* 圆角 */
+    -fx-border-color: #e0e0e0;                     /* 浅色边框 */
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2); /* 阴影 */
+}
+/* 已完成任务的样式 */
+.todoitem-container.completed {
+    -fx-background-color: #d3d3d3; /* 完成任务的灰色背景 */
+    -fx-border-color: #a9a9a9;     /* 较深的边框颜色 */
+    -fx-opacity: 0.7;              /* 半透明效果 */
+    -fx-effect: none;              /* 去掉阴影 */
+}
+
+.todoitem-container.completed .todoitem-content {
+    -fx-strikethrough: true;
+    -fx-text-fill: gray;
+}
+
+/* 4. 当鼠标悬停在任务条上时 */
+#main-content-area .todoitem-container:hover {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2196F3; /* 悬停时边框变蓝 */
+}
+
+/* 5. 选中的单元格内部样式 */
+#main-content-area .list-cell:selected .todoitem-container {
+    -fx-background-color: #e3f2fd;
+    -fx-border-color: #1976d2;
+}
+
+/* 文字样式 */
+#main-content-area .todoitem-content {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
