@@ -21,9 +21,9 @@
   }, {
     "content" : "my first task",
     "completed" : true,
-    "progress" : 0,
+    "progress" : 44,
     "id" : 4,
-    "priority" : 0
+    "priority" : 2
   }, {
     "content" : "my second task",
     "completed" : true,

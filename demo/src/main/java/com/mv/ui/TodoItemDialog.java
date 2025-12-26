@@ -52,7 +52,7 @@ public class TodoItemDialog extends Dialog<TodoItem> {
 
         // 绑定进度条数值到 Label
         progressSlider.valueProperty().addListener((obs, oldVal, newVal) -> 
-            progressLabel.setText(newVal.intValue() + "%"));
+        progressLabel.setText(newVal.intValue() + "%"));
         
         // 布局组装
         grid.add(new Label("内容:"), 0, 0);

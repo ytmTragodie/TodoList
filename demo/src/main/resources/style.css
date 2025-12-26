@@ -21,24 +21,7 @@
 
 
 
-/* 美化按钮 */
-.button {
-    -fx-background-color: #4a90e2;
-    -fx-text-fill: white;
-    -fx-background-radius: 5;
-    -fx-padding: 8 15;
-}
-.button:hover {
-    -fx-background-color: #357abd;
-    background-color: #357abd;
-}
 
-/* 美化输入框 */
-.text-field {
-    -fx-background-radius: 5;
-    -fx-border-color: #ddd;
-    -fx-border-radius: 5;
-}
 
 /** side bar area **/
 
@@ -68,6 +51,17 @@
 #sidebar .list-cell:selected {
     -fx-background-color: rgb(6, 3, 79); /* 选中时的背景颜色 */
     -fx-text-fill: white;           /* 选中时的文字颜色 */
+}
+
+#sidebar .button {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-padding: 8 15;
+}
+#sidebar .button:hover {
+    -fx-background-color: #357abd;
+    background-color: #357abd;
 }
 
 
@@ -130,4 +124,26 @@
     -fx-font-size: 12px;
     -fx-text-fill: #666;
     -fx-padding: 0 10 0 0;
+}
+
+/* 美化按钮 */
+#main-content-area .button {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-padding: 8 15;
+}
+#main-content-area .button:hover {
+    -fx-background-color: #357abd;
+    background-color: #357abd;
+}
+
+
+
+/* 收缩按钮样式 */
+.collapse-button {
+    -fx-background-color: #046bbeb1;
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-background-radius: 10 10 10 10; /* 右侧圆角 */
 }

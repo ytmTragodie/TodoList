@@ -10,8 +10,14 @@ import com.mv.service.StorageService;
 import com.mv.ui.TaskListCell;
 import com.mv.ui.TodoItemDialog;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -51,6 +57,11 @@ public class App extends Application
     private ListView<TodoList> sidebarListView;
     private ListView<TodoItem> taskListView;
     private Label currentListNameLabel;
+    private double xOffset = 0;
+    private double yOffset = 0;
+    private boolean isCollapsed = false;
+    private final double COLLAPSED_WIDTH = 30.0; // 收缩后露出的宽度
+    private double ORIGINAL_STAGE_X = 0;
 
 
     @Override
@@ -67,19 +78,33 @@ public class App extends Application
 
         VBox sidebar = createSidebar();
         VBox mainContent = createMainContent();
+        Button collapseButton = createCollapseButton(root, stage);
         
         HBox.setHgrow(mainContent, Priority.ALWAYS);
-        root.getChildren().addAll(sidebar, mainContent);
+        root.getChildren().addAll(sidebar, mainContent, collapseButton);
+
+        // 允许用户拖动无边框窗口
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
 
         // 3. 场景设置
         Scene scene = new Scene(root, 900, 600);
+        scene.setFill(Color.TRANSPARENT); // 设置场景背景透明
+        stage.initStyle(StageStyle.TRANSPARENT); // 设置窗口透明    
         // 确保你的 resources 目录下有 style.css
         try {
             scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         } catch (Exception e) {
             System.err.println("Style sheet not found");
         }
-
+        // 4. 舞台设置
+        stage.initStyle(StageStyle.UNDECORATED);// 无边框窗口
         stage.setTitle("Modern To-Do List");
         stage.setScene(scene);
         stage.show();
@@ -161,6 +186,7 @@ public class App extends Application
         Button editButton = new Button("编辑");
         Button removeButton = new Button("移除");
         Button clearButton = new Button("清空任务列表");
+       
 
         //add item logic
         addButton.setOnAction(e -> handleAddItem());
@@ -181,10 +207,59 @@ public class App extends Application
         });
 
 
-
         inputArea.getChildren().addAll(addButton, editButton, removeButton, clearButton);
         mainContent.getChildren().addAll(currentListNameLabel, taskListView, inputArea);
         return mainContent;
+    }
+
+    //创建侧边悬浮按钮  
+    private Button createCollapseButton(HBox root, Stage stage) {
+        Button collapseButton = new Button("◀");
+        collapseButton.setPrefWidth(30);
+        collapseButton.setPrefHeight(Double.MAX_VALUE);
+        collapseButton.setAlignment(Pos.CENTER);
+        HBox.setMargin(collapseButton, new Insets(50,0,50,0));
+        collapseButton.getStyleClass().add("collapse-button");
+        collapseButton.setOnAction(e -> {
+            // stage.setX(0);
+            if(!isCollapsed ) {
+                ORIGINAL_STAGE_X = stage.getX();
+                double moveDistance = stage.getWidth() - COLLAPSED_WIDTH;
+                toggleStageAnimation(stage, - moveDistance);
+                collapseButton.setText("▶");
+                isCollapsed = true;
+            } else {
+                toggleStageAnimation(stage, ORIGINAL_STAGE_X);
+                collapseButton.setText("◀");
+                isCollapsed = false;
+            }  
+        });
+
+        root.setOnMouseClicked(e -> {
+            if(isCollapsed ){
+                toggleStageAnimation(stage, ORIGINAL_STAGE_X);
+                collapseButton.setText("◀");
+                isCollapsed = false;
+            }
+        });
+        return collapseButton;
+
+    }
+
+    private void toggleStageAnimation(Stage stage, double targetX) {
+        // 创建一个时间轴动画，持续 300 毫秒
+        Timeline timeline = new Timeline();
+        // 关键帧：在 300ms 内，将 stage 的 x 属性平滑变动到 targetX,注意keyvalue constructor 第一个参数要求是writable value
+        DoubleProperty dummyX = new SimpleDoubleProperty(stage.getX());
+        dummyX.addListener((obs,oldval,newval)->{
+            stage.setX(newval.doubleValue());
+        });
+
+        KeyValue keyValue = new KeyValue(dummyX, targetX, Interpolator.EASE_BOTH);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(300), keyValue);
+        
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
     }
 
     /* 业务逻辑方法 */

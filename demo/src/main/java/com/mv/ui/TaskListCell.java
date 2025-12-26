@@ -98,11 +98,11 @@ public class TaskListCell extends ListCell<TodoItem> {
     private void updatePriorityIcon(int priority) {
         switch (priority) {
             case 2:
-                priorityIcon.setText("●");
+                priorityIcon.setText("○");
                 priorityIcon.setStyle("-fx-text-fill: red;");
                 break;
             case 1:
-                priorityIcon.setText("●");
+                priorityIcon.setText("○");
                 priorityIcon.setStyle("-fx-text-fill: orange;");
                 break;
             default:
